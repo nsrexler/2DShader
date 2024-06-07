@@ -1,7 +1,12 @@
 "use strict";
 
 function draw2DShader(gl, fsSource, bindFn) {
-    const vsSource = `
+    const vsSource = fsSource.startsWith("#version 300 es") ? `#version 300 es
+        in vec4 aVertexPosition;
+        void main() {
+            gl_Position = aVertexPosition;
+        }
+    ` : `
         attribute vec4 aVertexPosition;
         void main() {
             gl_Position = aVertexPosition;
